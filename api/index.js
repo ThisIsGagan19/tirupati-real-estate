@@ -5,6 +5,8 @@ import authRouter from "./routes/auth.routes.js";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import listingRouter from "./routes/listing.routes.js";
+import path from "path";
+
 dotenv.config();
 
 mongoose
@@ -16,17 +18,22 @@ mongoose
     console.error("Error connecting to MongoDB:", error);
   });
 
+const __dirname = path.resolve();
 const app = express();
+
 app.use(express.json());
 app.use(cookieParser());
-
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
-});
 
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/listing", listingRouter);
+
+app.use(express.static(path.join(__dirname, "../client/dist")));
+
+app.get(/.*/, (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+});
+
 
 // middleware for error handling
 app.use((err, req, res, next) => {
@@ -37,4 +44,8 @@ app.use((err, req, res, next) => {
     statusCode,
     message,
   });
+});
+
+app.listen(3000, () => {
+  console.log("Server is running on port 3000");
 });

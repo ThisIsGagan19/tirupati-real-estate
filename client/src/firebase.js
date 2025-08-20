@@ -8,7 +8,8 @@ const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "tripura-real-estate.firebaseapp.com",
   projectId: "tripura-real-estate",
-  storageBucket: "tripura-real-estate.firebasestorage.app",
+  // storageBucket: "tripura-real-estate.firebasestorage.app",
+  storageBucket: "tripura-real-estate.appspot.com",
   messagingSenderId: "79587743011",
   appId: "1:79587743011:web:bec1aaaca94437bb94e896"
 };
